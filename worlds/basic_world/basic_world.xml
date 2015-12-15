@@ -19,9 +19,9 @@
       <shadows>1</shadows>
     </scene>
     <physics type='ode'>
-      <max_step_size>0.01</max_step_size>
+      <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
-      <real_time_update_rate>100</real_time_update_rate>
+      <real_time_update_rate>1000</real_time_update_rate>
       <gravity>0 0 -9.8</gravity>
     </physics>
     <model name='ground_plane_0'>
@@ -334,12 +334,12 @@
           <pose>0.00947362 2.50779e-05 0.014919 0 -0 0</pose>
           <mass>2.4723</mass>
           <inertia>
-            <ixx>0.0578436</ixx>
-            <ixy>-2.91646e-06</ixy>
-            <ixz>0.000317338</ixz>
-            <iyy>0.0579316</iyy>
-            <iyz>-9.59821e-07</iyz>
-            <izz>0.0719963</izz>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
           </inertia>
         </inertial>
         <collision name='base_footprint_collision_base_link'>

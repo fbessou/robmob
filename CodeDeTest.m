@@ -18,6 +18,7 @@ send(robot,velmsg);
 img = Camera();
 pause(3);
 imshow(readImage(img));
+A = readImage(img);
 %%
 scaning = Scan(4);
 plot(scaning)
@@ -28,6 +29,8 @@ distance = transpose(B);
 distance = fliplr(distance);
 x = 1:1:640;
 scatter(x,distance,36,ligne)
+%%
+[robot,imsub,laser,velnull] = Init('192.168.199.132');
 %%
 rosshutdown
 clear

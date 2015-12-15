@@ -1,6 +1,5 @@
-function [] = Rotate(Angular_Velocity)
+function [] = Rotate(Angular_Velocity,robot)
 %ROTATE Commande to make the robot rotate
-robot = rospublisher('/mobile_base/commands/velocity');
 velmsg = rosmessage(robot);
 velmsg.Angular.Z = Angular_Velocity;
 send(robot,velmsg);
