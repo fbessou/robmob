@@ -14,12 +14,8 @@ rostopic info /mobile_base/commands/motor_power
 %%
 Rotate(1,robot);
 %%
-velmsg = rosmessage(robot);
-velmsg.Linear.X = 1;
-velmsg.Angular.Z = 0;
-send(robot,velmsg);
-%%
-send(robot,velnull);
+img = Camera(imsub);
+imshow(readImage(img));
 %%
 f = 0.05; 
 u0 = 320;
