@@ -48,7 +48,7 @@ if b < eps & abs(r1-r2) < tol
 end
 
 bv = bv/b;            % Normalise baseline vector.
-bvp = [-bv(2) bv(1)]; % Vector perpendicular to baseline
+bvp = [-bv(2); bv(1)]; % Vector perpendicular to baseline
 
 % Trap the degenerate cases where one of the radii are zero, or nearly zero
 
