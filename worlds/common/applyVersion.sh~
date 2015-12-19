@@ -1,4 +1,0 @@
-#!/bin/sh
-
-version=`rosversion -d`
-sed -s "s/hydro/$version/g" $1 > $2
