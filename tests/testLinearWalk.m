@@ -5,7 +5,7 @@ rosinit(ipaddress);
 %%
 vel_mux_publisher = rospublisher('/mobile_base/commands/velocity');
 %%
-linearWalk(1,vel_mux_publisher);
+linearWalk(-1,vel_mux_publisher);
 gazeboPosition('mobile_base')
 %%
 reachVelocity(createTwist(),createTwist(),vel_mux_publisher,1,0.01);

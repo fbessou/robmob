@@ -43,7 +43,7 @@
           <surface>
             <friction>
               <ode>
-                <mu>200</mu>
+                <mu>1</mu>
                 <mu2>100</mu2>
               </ode>
             </friction>
@@ -808,7 +808,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/kobuki_description/meshes/main_body.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/kobuki_description/meshes/main_body.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -817,7 +817,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/sensors/kinect.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/sensors/kinect.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -826,7 +826,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/plate_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/plate_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -835,7 +835,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/plate_middle.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/plate_middle.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -844,7 +844,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/plate_top.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/plate_top.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -853,7 +853,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -862,7 +862,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -871,7 +871,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -880,7 +880,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -889,7 +889,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -898,7 +898,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_bottom.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -907,7 +907,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_kinect.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_kinect.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -916,7 +916,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_kinect.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_kinect.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -925,7 +925,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -934,7 +934,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -943,7 +943,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -952,7 +952,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_middle.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -961,7 +961,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -970,7 +970,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -979,7 +979,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -988,7 +988,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/turtlebot_description/meshes/stacks/hexagons/pole_top.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -1206,7 +1206,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/kobuki_description/meshes/wheel.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/kobuki_description/meshes/wheel.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -1276,7 +1276,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/opt/ros/indigo/share/kobuki_description/meshes/wheel.dae</uri>
+              <uri>/opt/ros/ROSVERSION/share/kobuki_description/meshes/wheel.dae</uri>
             </mesh>
           </geometry>
         </visual>

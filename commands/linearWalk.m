@@ -12,6 +12,6 @@ function linearWalk( distance,publisher,speed)
     maintainVelocity(endTwist,abs(distance)/speed,publisher)
     
     reachVelocity(endTwist,startTwist,publisher,0.5,0.01);
-    ensureImmobility(publisher)
+    ensureImmobility('mobile_base')
 end
 
