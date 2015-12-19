@@ -1,8 +1,9 @@
-function [List] = Dijkstra(Point,Edge,start,Goal)
-    [indexGoal,~] = ClosestPoint(Goal,Point);
-    [indexStart,~] = ClosestPoint(start,Point);
+function [List] = Dijkstra(Points,Edge,start,Goal)
+    [indexGoal,~] = ClosestPoint(Goal,Points);
+    [indexStart,~] = ClosestPoint(start,Points);
     queue = [indexStart];
-    for i =1:size(Point,1);
+    source = zeros(size(Points));
+    for i =1:size(Points,1);
         source(i) = 0;
     end
     

@@ -1,5 +1,4 @@
 function H=circle(center,radius,NOP,style)
-%---------------------------------------------------------------------------------------------
 % H=CIRCLE(CENTER,RADIUS,NOP,STYLE)
 % This routine draws a circle with center defined as
 % a vector CENTER, radius as a scaler RADIS. NOP is 
@@ -16,7 +15,7 @@ function H=circle(center,radius,NOP,style)
 %   Zhenhai Wang <zhenhai@ieee.org>
 %   Version 1.00
 %   December, 2002
-%---------------------------------------------------------------------------------------------
+
 
 if (nargin <3),
  error('Please see help for INPUT DATA.');
