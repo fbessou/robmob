@@ -7,7 +7,7 @@ function [ Pose Cov ] = ActiveLocalization( velsub,imsub )
     lowerColor = [];
     
     while length(lowerColor) < 3
-        linearRotate(pi/4,velsub,pi/4)
+        linearRotate(pi/4,velsub)
         img = Camera(imsub);
         imshow(readImage(img));
         A = rgb2hsv(readImage(img));
@@ -58,7 +58,7 @@ function [ Pose Cov ] = ActiveLocalization( velsub,imsub )
             end
 
             orientation = atan2(p2(2) - positionR(2), p2(1) - positionR(1)) - theta(2);
-
+            orientation
             Pose = [positionR(1); positionR(2); orientation];
             Cov = zeros(3,3);
         end

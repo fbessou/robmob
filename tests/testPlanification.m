@@ -1,18 +1,20 @@
-ipaddress = '192.168.199.132';
-%ipaddress = '127.0.0.1';
+%ipaddress = '192.168.199.132';
+ipaddress = '127.0.0.1';
+%%
 try
+    %%
     rosinit(ipaddress);
     load('basic_world_graph')
     load('basic_world')
     vel_mux_publisher = rospublisher('/mobile_base/commands/velocity');
-    imsub = rossubscriber('/camera/rgb/image_raw/compressed');
+    imsub = rossubscriber('/camera/rgb/image_raw');
 catch
 end
 
 Pos = [0 0 0]';
-Cov = zeros(3,3);
-localizationFunc = 'TriangulareLocalization';
-[Pos(:), Cov(:,:)] = feval(localizationFunc,Pos,Cov,[0; 0; 0],imsub);
+Cov = ones(3,3);
+localizationFunc = 'triangularLocalization';
+[Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub);
 targetPosition = extractPosition(gazeboPose('robot_target'));
 targetPosition = targetPosition +[5 12]';
 lastTargetPosition = targetPosition;
@@ -48,11 +50,13 @@ while ~finished
         end
         scatter(nextPoint(1),nextPoint(2))
         scatter(Pos(1),Pos(2))
-        scatter(targetPosition(1),targetPosition(2))
+        sightLine = Pos(1:2)+[cos(Pos(3)) , -sin(Pos(3));sin(Pos(3)), cos(Pos(3))]*[ 0.5; 0]
+        plot([Pos(1) sightLine(1)],[Pos(2) sightLine(2)],'R');
+        scatter(targetPosition(1),targetPosition(2),40,'g')
         %% Move toward next waypoint
         command = [min(norm(deltaPos),1); deltaAngle];
-        linearRotate(deltaAngle,vel_mux_publisher,pi/2);
-        smoothWalk(min(norm(deltaPos),1),vel_mux_publisher,1);
+        linearRotate(deltaAngle,vel_mux_publisher);
+        smoothWalk(min(norm(deltaPos),1),vel_mux_publisher);
         %% Update position
         if isempty(Cov(abs(Cov(1:2,1:2)) > 0.3)) && Cov(3,3) < pi/4
             [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub);

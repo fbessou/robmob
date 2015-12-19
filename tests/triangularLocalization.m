@@ -1,4 +1,4 @@
-function [  Pose Cov ] = TriangulareLocalization(lastPose, lastCov, command,imsub )
+function [  Pose Cov ] = triangularLocalization(lastPose, lastCov, command,imsub )
 %TRIANGULARELOCALIZATION Summary of this function goes here
 %   Detailed explanation goes here
 

@@ -1,6 +1,6 @@
 function linearRotate(angle,publisher,speed)
     if nargin < 3
-        speed = 0.1;
+        speed = pi/6;
     end
     dir = sign(angle);
     endTwist = createTwist();
