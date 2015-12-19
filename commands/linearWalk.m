@@ -1,8 +1,17 @@
-function linearWalk( distance,publisher )
+function linearWalk( distance,publisher,speed)
+    if nargin < 3
+        speed = 0.3;
+    end
+    
     startTwist = createTwist();
     endTwist = createTwist();
-    endTwist.Linear.X = distance*0.2;
-    reachVelocity(startTwist,endTwist,publisher,5,0.01);
-    reachVelocity(endTwist,startTwist,publisher,5,0.01);
+    endTwist.Linear.X = speed*sign(distance);
+    
+    reachVelocity(startTwist,endTwist,publisher,0.5,0.01);
+    
+    maintainVelocity(endTwist,abs(distance)/speed,publisher)
+    
+    reachVelocity(endTwist,startTwist,publisher,0.5,0.01);
+    ensureImmobility(publisher)
 end
 
