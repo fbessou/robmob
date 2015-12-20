@@ -59,6 +59,15 @@ A = rgb2hsv(readImage(img));
         orientation = atan2(p2(2) - positionR(2), p2(1) - positionR(1)) - theta(2);
 
         Pose = [positionR(1); positionR(2); orientation];
+        distance = sqrt((Pose(1) + lastPose(1))^2 + (Pose(2) + lastPose(2))^2);
+            if isequaln(Cov,zeros(3,3)) && command(1) < 3
+                k = find(abs(Commands(:,1) - command(1)) > 0.1);
+                if ~isnan(k)
+                    Commands(2,k) =  (distance + Commands(k,2) * Commande(k,3))/2;
+                    Commands(3,k) =  Commands(3,k) + 1;
+                end
+            end
+            
         Cov = zeros(3,3);
 
     else

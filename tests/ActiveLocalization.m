@@ -1,4 +1,4 @@
-function [ Pose Cov ] = ActiveLocalization( velsub,imsub )
+function [ Pose Cov ] = ActiveLocalization( velsub,imsub,Cov,lastPose,command,Commands)
 %ACTIVELOCALIZATION Summary of this function goes here
 %   Detailed explanation goes here
     run('worlds/basic_world/Marker.m')
@@ -58,8 +58,17 @@ function [ Pose Cov ] = ActiveLocalization( velsub,imsub )
             end
 
             orientation = atan2(p2(2) - positionR(2), p2(1) - positionR(1)) - theta(2);
-            orientation
+            
             Pose = [positionR(1); positionR(2); orientation];
+            distance = sqrt((Pose(1) + lastPose(1))^2 + (Pose(2) + lastPose(2))^2);
+            if isequaln(Cov,zeros(3,3)) && distance < 3
+                k = find(abs(Commands(:,1) - command(1)) > 0.1);
+                if ~isnan(k)
+                    Commands(k,2) =  (distance + Commands(k,2) * Commande(k,3))/(Commande(k,3) + 1);
+                    Commands(k,3) =  Commands(k,3) + 1;
+                end
+            end
+            
             Cov = zeros(3,3);
         end
     end

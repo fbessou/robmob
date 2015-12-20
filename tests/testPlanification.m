@@ -1,5 +1,6 @@
 %ipaddress = '192.168.199.132';
 ipaddress = '127.0.0.1';
+Commands = [];
 %%
 try
     %%
@@ -10,6 +11,7 @@ try
     imsub = rossubscriber('/camera/rgb/image_raw');
 catch
 end
+
 
 Pos = [0 0 0]';
 Cov = ones(3,3);
@@ -54,14 +56,15 @@ while ~finished
         plot([Pos(1) sightLine(1)],[Pos(2) sightLine(2)],'R');
         scatter(targetPosition(1),targetPosition(2),40,'g')
         %% Move toward next waypoint
-        command = [min(norm(deltaPos),1); deltaAngle];
+        k = find(abs(Commands(:,2) - min(norm(deltaPos),1)) > 0.1);
+        command = [Commands(k,1); deltaAngle];
         linearRotate(deltaAngle,vel_mux_publisher);
-        smoothWalk(min(norm(deltaPos),1),vel_mux_publisher);
+        smoothWalk(command ,vel_mux_publisher);
         %% Update position
-        if isempty(Cov(abs(Cov(1:2,1:2)) > 0.3)) && Cov(3,3) < pi/4
-            [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub);
+        if max(abs(eig(Cov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
+            [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub,Commands);
         else
-            [Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub);
+            [Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub,Cov,Pos,[min(norm(deltaPos),1); deltaAngle],Commands);
         end
         lastTargetPosition = targetPosition;
         targetPosition = extractPosition(gazeboPose('robot_target'));
