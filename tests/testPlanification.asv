@@ -16,7 +16,7 @@ end
 Pos = [0 0 0]';
 Cov = ones(3,3);
 localizationFunc = 'triangularLocalization';
-[Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub,Cov,Pos,[0; 0],Commands);
+[Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub,Cov,Pos,[0; deltaA],Commands);
 targetPosition = extractPosition(gazeboPose('robot_target'));
 targetPosition = targetPosition +[5 12]';
 lastTargetPosition = targetPosition;
