@@ -76,7 +76,7 @@ A = rgb2hsv(readImage(img));
                 lastPose(3) + command(2)];     
         mRotation = [cos(command(2)), -sin(command(2));
                      sin(command(2)), cos(command(2))];
-        CovX = 0.15;
+        CovX = 0.075;
         mRotationGlobal = mRotation * [cos(lastPose(3)), -sin(lastPose(3));
                                         sin(lastPose(3)), cos(lastPose(3))];
         CovP = mRotation * lastCov(1:2,1:2) + mRotationGlobal * abs(command(1)) * CovX;

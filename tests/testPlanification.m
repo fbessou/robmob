@@ -1,6 +1,5 @@
-ipaddress = '192.168.199.132';
-%ipaddress = '127.0.0.1';
-Commands = [];
+%ipaddress = '192.168.199.132';
+ipaddress = '127.0.0.1';
 %%
 try
     %%
@@ -52,17 +51,17 @@ while ~finished
         end
         scatter(nextPoint(1),nextPoint(2))
         scatter(Pos(1),Pos(2))
-        sightLine = Pos(1:2)+[cos(Pos(3)) , -sin(Pos(3));sin(Pos(3)), cos(Pos(3))]*[ 0.5; 0]
+        sightLine = Pos(1:2)+[cos(Pos(3)) , -sin(Pos(3));sin(Pos(3)), cos(Pos(3))]*[ 0.5; 0];
         plot([Pos(1) sightLine(1)],[Pos(2) sightLine(2)],'R');
         scatter(targetPosition(1),targetPosition(2),40,'g')
         %% Move toward next waypoint
-        k = find(abs(Commands(:,2) - min(norm(deltaPos),1)) > 0.1);
-        command = [Commands(k,1); deltaAngle];
-        linearRotate(deltaAngle,vel_mux_publisher);
-        smoothWalk(command ,vel_mux_publisher);
+        [p k] = min(abs(Commands(:,2) - min(norm(deltaPos),1)));
+        command = [Commands(k,1); deltaAngle/RotationCommandFactor]
+        linearRotate(command(2),vel_mux_publisher);
+        smoothWalk(command(1) ,vel_mux_publisher);
         %% Update position
         if max(abs(eig(Cov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
-            [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub,Commands);
+            [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub,Commands)
         else
             [Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub,Cov,Pos,[min(norm(deltaPos),1); deltaAngle],Commands);
         end

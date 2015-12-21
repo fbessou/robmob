@@ -5,7 +5,7 @@ function linearRotate(angle,publisher,speed)
     dir = sign(angle);
     endTwist = createTwist();
     endTwist.Angular.Z = speed*dir;
-    maintainVelocity(endTwist,abs(angle/speed),publisher)
-    ensureImmobility('mobile_base')
+    maintainVelocity(endTwist,abs(angle/speed),publisher);
+    ensureImmobility('mobile_base');
 end
 
