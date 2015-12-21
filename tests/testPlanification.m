@@ -60,11 +60,7 @@ while ~finished
         linearRotate(command(2),vel_mux_publisher);
         smoothWalk(command(1) ,vel_mux_publisher);
         %% Update position
-        if max(abs(eig(Cov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
-            [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub,Commands)
-        else
-            [Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub,Cov,Pos,[min(norm(deltaPos),1); deltaAngle],Commands);
-        end
+        [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub,Commands);
         lastTargetPosition = targetPosition;
         targetPosition = extractPosition(gazeboPose('robot_target'));
         targetPosition = targetPosition +[5 12]';

@@ -5,14 +5,21 @@ function [  Pose Cov ] = triangularLocalization(lastPose, lastCov, command,imsub
 
 Cov = zeros(3,3);
 run('worlds/basic_world/Marker.m')
-hfov = 1.0472;
-f = (640/2) / tan(hfov/2); 
-img = Camera(imsub);
-imshow(readImage(img));
-A = rgb2hsv(readImage(img));
 
-[lowerColor,index] = ColorImageHeight(A,250);
-    if length(lowerColor) >= 3
+if max(abs(eig(Cov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
+    hfov = 1.0472;
+    f = (640/2) / tan(hfov/2); 
+    img = Camera(imsub);
+    imshow(readImage(img));
+    A = rgb2hsv(readImage(img));
+    [lowerColor,index] = ColorImageHeight(A,250);
+    while length(lowerColor) < 3
+        linearRotate(pi/4,velsub)
+        img = Camera(imsub);
+        imshow(readImage(img));
+        A = rgb2hsv(readImage(img));
+        [lowerColor,index] = ColorImageHeight(A,250);
+    end
         lowerColor = lowerColor(1:3);
         index = index(1:3);
 
@@ -69,8 +76,7 @@ A = rgb2hsv(readImage(img));
             end
             
         Cov = zeros(3,3);
-
-    else
+else
         Pose = [lastPose(1) + command(1)*cos(lastPose(3) + command(2)); 
                 lastPose(2) + command(1)*sin(lastPose(3) + command(2));
                 lastPose(3) + command(2)];     
@@ -83,6 +89,6 @@ A = rgb2hsv(readImage(img));
         
         Cov(1:2,1:2) = CovP;
         Cov(3,3) = pi/6 * abs(command(2)) + lastCov(3,3);
-    end
+end
 end
 
