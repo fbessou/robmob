@@ -1,4 +1,4 @@
-function [  Pose Cov ] = triangularLocalization(lastPose, lastCov, command,imsub )
+function [  Pose Cov Calibration] = triangularLocalization(velsub,imsub, lastPose, lastCov,command,Calibration)
 %TRIANGULARELOCALIZATION Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,7 +6,7 @@ function [  Pose Cov ] = triangularLocalization(lastPose, lastCov, command,imsub
 Cov = zeros(3,3);
 run('worlds/basic_world/Marker.m')
 
-if max(abs(eig(Cov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
+if max(abs(eig(lastCov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
     hfov = 1.0472;
     f = (640/2) / tan(hfov/2); 
     img = Camera(imsub);
@@ -67,12 +67,10 @@ if max(abs(eig(Cov(1:2,1:2)))) > 0.3  && Cov(3,3) < pi/4
 
         Pose = [positionR(1); positionR(2); orientation];
         distance = sqrt((Pose(1) + lastPose(1))^2 + (Pose(2) + lastPose(2))^2);
-            if isequaln(Cov,zeros(3,3)) && command(1) < 3
-                k = find(abs(Commands(:,1) - command(1)) > 0.1);
-                if ~isnan(k)
-                    Commands(2,k) =  (distance + Commands(k,2) * Commande(k,3))/2;
-                    Commands(3,k) =  Commands(3,k) + 1;
-                end
+            if isequaln(lastCov,zeros(3,3)) && distance < 2
+                [m k] = min(Calibration(:,1) - command(1));
+                Calibration(k,2) =  (distance + Calibration(k,2) * Calibration(k,3))/2;
+                Calibration(k,3) =  Calibration(k,3) + 1;
             end
             
         Cov = zeros(3,3);
@@ -82,7 +80,7 @@ else
                 lastPose(3) + command(2)];     
         mRotation = [cos(command(2)), -sin(command(2));
                      sin(command(2)), cos(command(2))];
-        CovX = 0.075;
+        CovX = 0.15;
         mRotationGlobal = mRotation * [cos(lastPose(3)), -sin(lastPose(3));
                                         sin(lastPose(3)), cos(lastPose(3))];
         CovP = mRotation * lastCov(1:2,1:2) + mRotationGlobal * abs(command(1)) * CovX;

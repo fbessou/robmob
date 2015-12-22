@@ -15,7 +15,7 @@ end
 Pos = [0 0 0]';
 Cov = ones(3,3);
 localizationFunc = 'triangularLocalization';
-[Pos, Cov] = ActiveLocalization(vel_mux_publisher,imsub,Cov,Pos,[0; 0],Commands);
+[Pos, Cov,CalibrationDep] = feval(localizationFunc,vel_mux_publisher,imsub,Pos,Cov,[0 0]',CalibrationDep);
 targetPosition = extractPosition(gazeboPose('robot_target'));
 targetPosition = targetPosition +[5 12]';
 lastTargetPosition = targetPosition;
@@ -55,12 +55,12 @@ while ~finished
         plot([Pos(1) sightLine(1)],[Pos(2) sightLine(2)],'R');
         scatter(targetPosition(1),targetPosition(2),40,'g')
         %% Move toward next waypoint
-        [p k] = min(abs(Commands(:,2) - min(norm(deltaPos),1)));
-        command = [Commands(k,1); deltaAngle/RotationCommandFactor]
+        [p k] = min(abs(CalibrationDep(:,2) - min(norm(deltaPos),1)));
+        command = [CalibrationDep(k,1); deltaAngle/RotationCommandFactor];
         linearRotate(command(2),vel_mux_publisher);
         smoothWalk(command(1) ,vel_mux_publisher);
         %% Update position
-        [Pos, Cov] = feval(localizationFunc,Pos,Cov,[min(norm(deltaPos),1); deltaAngle],imsub,Commands);
+        [Pos, Cov , CalibrationDep] = feval(localizationFunc,vel_mux_publisher,imsub,Pos,Cov,command,CalibrationDep);
         lastTargetPosition = targetPosition;
         targetPosition = extractPosition(gazeboPose('robot_target'));
         targetPosition = targetPosition +[5 12]';
