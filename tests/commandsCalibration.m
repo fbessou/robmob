@@ -22,12 +22,12 @@ GAZ_MAP_TF = [5 12]';
 initialPosition = [ 8 3 3*pi/4]';
 initialCovariance = zeros(3,3);
 
-dmin = 0.2;
+dmin = 0.1;
 dmax = 2;
-step = 0.2;
+step = 0.1;
 nSteps = (dmax-dmin+step)/step;
 
-nSamples = 10
+nSamples = 5;
 
 effectiveDistances = zeros(nSteps,2);
 effectiveDistances(:,1) = linspace(dmin,dmax,nSteps)';
@@ -36,12 +36,12 @@ for currentCommandId = 1:1:nSteps
         % place robot at starting point
         Pose = createPose(initialPosition - [GAZ_MAP_TF; 0]);
         gazeboForceModelState('mobile_base',Pose,createTwist());
-        Cov = initialCovariance;
+        Cov = ones(3,3);
         
         currentCommand = dmin + step*(currentCommandId-1);
         
         smoothWalk(currentCommand,vel_mux_publisher);
-        [position Cov] = triangularLocalization(initialPosition,Cov,[currentCommand 0],imsub);
+        [position Cov] = triangularLocalization(vel_mux_publisher,imsub,initialPosition,Cov,[currentCommand 0],zeros(1,3));
         delta = position(1:2)-initialPosition(1:2);
         distance = norm(delta);
         
@@ -73,15 +73,24 @@ for currentCommandId = 1:1:nSteps
         Cov = initialCovariance;
         
         currentCommand = dmin + step*(currentCommandId-1);
-        linearRotate(currentCommand,vel_mux_publisher);
-        [position Cov] = gazeboLocalization();
-        angle = mod(position(3) + pi,2*pi) - pi;
+        if currentCommand~=0
+            linearRotate(currentCommand,vel_mux_publisher);
+            [position Cov] = gazeboLocalization();
+            if currentCommandId < nSteps/2
+                angle = mod(position(3) + 2*pi,2*pi)-2*pi;
+            else
+                angle = mod(position(3) + 2*pi,2*pi);
+            end
+            % weighted arithmetic mean of aggregated values
+            effectiveRotations(currentCommandId,2)= (effectiveRotations(currentCommandId,2)*(sample-1)+angle)/sample;
+        else
+            effectiveRotations(currentCommandId,2) = 0;
+        end
         
-        % weighted arithmetic mean of aggregated values
-        effectiveRotations(currentCommandId,2)= (effectiveRotations(currentCommandId,2)*(sample-1)+angle)/sample;
     end
 end
-RotationCommands = [effectiveRotations , ones(nSteps,1)*nSamples ];
-RotationCommandFactor =  effectiveRotations(3:22,1) \ effectiveRotations(3:22,2)
 
-gazeboForceModelState('mobile_base',pose,createTwist());
+RotationCommands = [effectiveRotations , ones(nSteps,1)*nSamples ];
+linearised = polyfit(effectiveRotations(:,1),effectiveRotations(:,2),1);
+RotationCommandFactor =  linearised(1)
+
